@@ -1,9 +1,10 @@
 # 🎓 AI-Powered Student Performance Prediction Dashboard
-
+(live :-https://student-performance-predictor-123.streamlit.app/)
 An end-to-end Machine Learning project that predicts student academic performance using study habits, attendance, failures, and behavioral factors.  
 Built with Python, Scikit-learn, Streamlit, Plotly, and ML Pipelines.
 
 ---
+
 
 # 🚀 Live Features
 
@@ -17,18 +18,6 @@ Built with Python, Scikit-learn, Streamlit, Plotly, and ML Pipelines.
 ✅ AI Recommendation Engine  
 ✅ Interactive Charts & Analytics  
 ✅ Production-Style Modular Architecture  
-
----
-
-# 📸 Project Preview
-
-## Dashboard Overview
-
-(Add your dashboard screenshot here)
-
-```bash
-assets/dashboard.png
-```
 
 ---
 

@@ -1,7 +1,22 @@
+import sys
+import os
+
+
+sys.path.append(
+    os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            ".."
+        )
+    )
+)
+
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+
 from datetime import datetime
 
 from src.pipeline.prediction_pipeline import (
@@ -9,9 +24,6 @@ from src.pipeline.prediction_pipeline import (
     PredictionPipeline
 )
 
-# =========================================================
-# PAGE CONFIG
-# =========================================================
 
 st.set_page_config(
     page_title="Student Performance AI Dashboard",
@@ -20,9 +32,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# =========================================================
-# CUSTOM CSS
-# =========================================================
+
 
 st.markdown("""
 <style>
@@ -72,6 +82,7 @@ p, label, div {
     border-radius: 20px;
     border: 1px solid #1e293b;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+    text-align: center;
 }
 
 /* SECTION CARDS */
@@ -152,9 +163,7 @@ header {
 </style>
 """, unsafe_allow_html=True)
 
-# =========================================================
-# HEADER
-# =========================================================
+
 
 st.title("🎓 AI-Powered Student Performance Dashboard")
 
@@ -162,10 +171,6 @@ st.markdown("""
 Predict academic performance using Machine Learning,
 real-time analytics, and AI-powered recommendations.
 """)
-
-# =========================================================
-# SIDEBAR
-# =========================================================
 
 st.sidebar.markdown("## 📘 Student Information")
 
@@ -215,9 +220,6 @@ predict_button = st.sidebar.button(
     "🚀 Predict Performance"
 )
 
-# =========================================================
-# TOP METRICS
-# =========================================================
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -262,7 +264,9 @@ with col4:
 
 if predict_button:
 
-    # PREDICTION
+    # =====================================================
+    # MODEL PREDICTION
+    # =====================================================
 
     data = CustomData(
         age=age,
@@ -285,11 +289,16 @@ if predict_button:
     # PREDICTION SECTION
     # =====================================================
 
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="section-card">',
+        unsafe_allow_html=True
+    )
 
     left_col, right_col = st.columns([1.2, 1])
 
-    # -----------------------------------------------------
+    # =====================================================
+    # GAUGE CHART
+    # =====================================================
 
     with left_col:
 
@@ -322,7 +331,9 @@ if predict_button:
             width="stretch"
         )
 
-    # -----------------------------------------------------
+    # =====================================================
+    # RECOMMENDATION SECTION
+    # =====================================================
 
     with right_col:
 
@@ -331,10 +342,10 @@ if predict_button:
             performance_text = "⚠ High Academic Risk"
 
             recommendation = """
-            ✅ Increase daily study hours  
-            ✅ Reduce absenteeism  
+            ✅ Increase study hours  
+            ✅ Reduce absences  
             ✅ Focus on weak subjects  
-            ✅ Practice consistent revision  
+            ✅ Practice revision daily  
             """
 
         elif prediction < 14:
@@ -343,8 +354,8 @@ if predict_button:
 
             recommendation = """
             ✅ Improve assignment consistency  
-            ✅ Spend more time on practice  
-            ✅ Build better study routines  
+            ✅ Practice regularly  
+            ✅ Improve study routine  
             """
 
         else:
@@ -352,9 +363,9 @@ if predict_button:
             performance_text = "🏆 Excellent Performance"
 
             recommendation = """
-            ✅ Maintain current performance  
+            ✅ Maintain current consistency  
             ✅ Continue advanced preparation  
-            ✅ Practice higher-level problems  
+            ✅ Practice challenging problems  
             """
 
         st.markdown(f"""
@@ -372,13 +383,19 @@ if predict_button:
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown(
+        '</div>',
+        unsafe_allow_html=True
+    )
 
     # =====================================================
     # DONUT CHART SECTION
     # =====================================================
 
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="section-card">',
+        unsafe_allow_html=True
+    )
 
     st.subheader("📊 Performance Contribution Analysis")
 
@@ -409,7 +426,7 @@ if predict_button:
             color="Category",
             color_discrete_map={
                 "Study Impact": "#3b82f6",
-                "Absence Impact": "#fbbf24",
+                "Absence Impact": "#f59e0b",
                 "Failure Impact": "#ef4444"
             }
         )
@@ -432,33 +449,32 @@ if predict_button:
             width="stretch"
         )
 
-    # -----------------------------------------------------
-
     with chart_col2:
 
-        st.markdown("""
-        <br><br>
-        """, unsafe_allow_html=True)
+        st.markdown("<br><br>", unsafe_allow_html=True)
 
         st.markdown("""
         ### 🔵 Study Impact
         
-        Positive impact from study time and consistency.
+        Positive effect from study consistency and learning habits.
         """)
 
         st.markdown("""
         ### 🟡 Absence Impact
         
-        Academic impact caused by absences.
+        Academic impact caused due to student absences.
         """)
 
         st.markdown("""
         ### 🔴 Failure Impact
         
-        Impact due to previous academic failures.
+        Performance reduction from previous academic failures.
         """)
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown(
+        '</div>',
+        unsafe_allow_html=True
+    )
 
 # =========================================================
 # FOOTER
@@ -467,5 +483,5 @@ if predict_button:
 st.markdown("<br>", unsafe_allow_html=True)
 
 st.caption("""
-Developed using Python, Streamlit, Plotly, Scikit-learn, Pandas, and Machine Learning Pipelines
+Developed using Python, Streamlit, Plotly, Scikit-learn, Pandas, NumPy, and Machine Learning Pipelines
 """)

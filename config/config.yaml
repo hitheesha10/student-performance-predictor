@@ -1,0 +1,18 @@
+data_ingestion:
+  test_size: 0.2
+
+model_trainer:
+  random_state: 42
+
+models:
+  LinearRegression:
+    enabled: true
+
+  DecisionTree:
+    enabled: true
+
+  RandomForest:
+    enabled: true
+
+  GradientBoosting:
+    enabled: true
